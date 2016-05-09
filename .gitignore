@@ -157,3 +157,10 @@ pythontex-files-*/
 
 # Latexian
 TSWLatexianTemp*
+
+# others
+*.url
+*.pdf
+
+# Mac OS X
+.DS_Store

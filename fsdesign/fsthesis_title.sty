@@ -1,0 +1,122 @@
+\def\classversion{1.0}
+\def\classdate{2016/04/30}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{fsthesis_title}
+ [\classdate\space\classversion\space Frankfurt School of Finance and Management design]
+
+
+% redefine some commands to avoid misuse
+\let\FS@thesis@maketitle\maketitle
+	\gdef\maketitle{\PackageError{\@currname}{Do not use '\noexpand\maketitle` directly!\MessageBreak See documentation for details.}\@ehc}
+
+% defines
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\gdef\@subtitle{}
+\let\@subtitle\@empty
+
+% check if variables are given
+\gdef\FS@thesis@author{\PackageError{\@currname}{No '\noexpand\author' given!\MessageBreak See documentation for details.}\@ehc}
+
+\gdef\FS@thesis@title{\PackageError{\@currname}{No '\noexpand\title' given!\MessageBreak See documentation for details.}\@ehc}
+
+% define new commands
+\gdef\FS@thesis@firstsupervisor{\PackageError{\@currname}{No '\noexpand\firstsupervisor` given!\MessageBreak See documentation for details.}\@ehc}
+\newcommand{\firstsupervisor}[1]{
+	\gdef\FS@thesis@firstsupervisor{#1}
+}
+
+\gdef\FS@thesis@secondsupervisor{\PackageError{\@currname}{No '\noexpand\secondsupervisor` given!\MessageBreak See documentation for details.}\@ehc}
+\newcommand{\secondsupervisor}[1]{%
+	\gdef\FS@thesis@secondsupervisor{#1}
+}
+
+\gdef\FS@thesis@masterprogramme{\PackageError{\@currname}{No '\noexpand\masterprogramme` given!\MessageBreak See documentation for details.}\@ehc}
+\newcommand{\masterprogramme}[1]{%
+	\gdef\FS@thesis@masterprogramme{#1}
+}
+
+\gdef\FS@thesis@matriculationnumber{\PackageError{\@currname}{No '\noexpand\matriculationnumber` given!\MessageBreak See documentation for details.}\@ehc}
+\newcommand{\matriculationnumber}[1]{%
+	\gdef\FS@thesis@matriculationnumber{#1}
+}
+
+\gdef\FS@thesis@address{\PackageError{\@currname}{No '\noexpand\address` given!\MessageBreak See documentation for details.}\@ehc}
+\newcommand{\address}[1]{%
+	\gdef\FS@thesis@address{#1}
+}
+
+\gdef\FS@thesis@telephone{\PackageError{\@currname}{No '\noexpand\telephone` given!\MessageBreak See documentation for details.}\@ehc}
+\newcommand{\telephone}[1]{%
+	\gdef\FS@thesis@telephone{#1}
+}
+
+\gdef\FS@thesis@email{\PackageError{\@currname}{No '\noexpand\email` given!\MessageBreak See documentation for details.}\@ehc}
+\newcommand{\email}[1]{%
+	\gdef\FS@thesis@email{#1}
+}
+
+\gdef\FS@thesis@date{\PackageError{\@currname}{No '\noexpand\date` given!\MessageBreak See documentation for details.}\@ehc}
+\renewcommand{\date}[1]{%
+	\gdef\FS@thesis@date{#1}
+}
+
+\newcommand{\makecoverpage}{%
+	\begingroup%
+		\thispagestyle{empty}%
+		%
+		\noindent%
+		\raggedright%
+		%
+		\center{\sffamily%
+			\Large{\FS@thesis@type}\par%
+			\vspace*{5cm}%
+			\@title\par
+			\vspace*{5cm}%
+			\@author\par
+		}%
+	\endgroup
+	\clearpage
+}
+
+\newcommand{\maketitlepage}{%
+	\newlength{\@FS@tmp@baselineskip}%
+	\setlength{\@FS@tmp@baselineskip}{\the\baselineskip}%
+	\setlength{\baselineskip}{0.0pt}%
+	\begingroup%
+		\parskip=8pt%
+		\thispagestyle{empty}%
+		%
+		\noindent%
+		\raggedright%
+		%
+		\center{\sffamily%
+			{\textbf \@title}\par%
+			\vspace*{2cm}%
+			\FS@thesis@type\par%
+			at Frankfurt School of Finance \& Management\par%
+			\vspace*{3cm}%
+			Supervised by\par%
+			\FS@thesis@firstsupervisor\par%
+			\FS@thesis@secondsupervisor\par%
+			\vspace*{3cm}%
+			Submitted by\par%	
+			\@author\par%
+			\FS@thesis@masterprogramme\par%
+			\FS@thesis@matriculationnumber\par%
+			\FS@thesis@address\par%
+			\FS@thesis@telephone\par%
+			\FS@thesis@email\par%
+			\vspace*{2cm}%
+			\FS@thesis@date\par%
+		}%
+	\setcounter{page}{-1}%
+	\thispagestyle{empty}%
+	\clearpage
+	\endgroup
+	\setlength{\baselineskip}{\@FS@tmp@baselineskip}%
+	%
+	\global\let\@FS@tmp@baselineskip\relax
+	\global\let\@FS@tmp@baselineskip\@undefined
+	%
+	\@ifundefined{chapter}{\clearpage}{}
+}	

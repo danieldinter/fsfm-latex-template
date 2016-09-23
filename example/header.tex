@@ -1,0 +1,189 @@
+% use font size 12pt as it is required by the guidelines
+\documentclass[12pt]{fsthesis}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[stable]{footmisc}
+\usepackage{xtab}
+
+% set default directory to graphics
+\graphicspath{ {graphics/} }
+
+% fix mac non-line-breaking space error
+\DeclareUnicodeCharacter{00A0}{ }
+
+% picins allows text to float around figures
+% use renewcommand to fix a picins-bug that figures not appear in TOC
+\usepackage{picins}
+\makeatletter
+\renewcommand\piccaption{\@dblarg{\@piccaption}}
+\makeatother
+
+% line-spacing should be at least 1.5
+\usepackage{setspace}
+\onehalfspacing
+
+% spacing after a paragraph should be at least 9pt
+\setlength{\parskip}{9pt}
+
+% header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% lipsum page for mock texts
+\usepackage{lipsum}
+
+% citation %%%%%%%%%%%%%%%%%%%%%%
+\usepackage[natbib=true,style=apa]{biblatex}
+\addbibresource{bibliography/masterthesis.bib}
+
+\usepackage[american]{babel}
+\DeclareLanguageMapping{american}{american-apa}
+\usepackage{csquotes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% captions
+\usepackage[singlelinecheck=false]{caption}
+
+% footnote
+\usepackage{footnote}
+
+% links
+\usepackage{hyperref}
+\hypersetup{%
+	linktocpage=false,	% linktocpage=true/false: im Inhaltsverzeichnis sind nur die Seitenzahlen links, nicht der Text
+	breaklinks=true,	% true/false: line-wrap links or not
+	colorlinks=true,		% true/false: color links
+	citecolor=black,		% color: color of links to the bibliography	
+	urlcolor=black,		% color: color of external links
+	linkcolor=black,		% color: color of intra-document links
+	pdfpagemode=UseThumbs,
+	pdftitle={\@title},
+	pdfauthor={\@author}
+}
+
+% set style or URLs in the document to the same style as the remaining text
+\urlstyle{same}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CUSTOM
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% custom packages
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[textsize=footnotesize,obeyDraft]{todonotes}
+\usepackage{eurosym}
+\usepackage[printonlyused]{acronym}
+\usepackage{listings}
+\usepackage{calc}
+\usepackage{float}
+\usepackage{aliascnt}
+\usepackage{mathtools}
+\usepackage{xfrac}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+\usepackage{multirow}
+\usepackage{rotating}
+%\usepackage{gnuplottex}
+\usepackage[]{epstopdf}
+\usepackage[toc,page]{appendix}
+\usepackage[all]{nowidow}
+\usepackage{pifont}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{fancyvrb}
+\usepackage[group-separator={,},group-minimum-digits=4]{siunitx}
+
+% Fix the font of the title page Appendices in appendix package and use the sffamily font
+\let\appendixpagenameorig\appendixpagename
+\renewcommand{\appendixpagename}{\sffamily\appendixpagenameorig}
+
+% Use package cleveref to gain control about upper-/lowercase autoname references
+\usepackage[nameinlink,noabbrev,capitalise]{cleveref} % has to be loaded after hyperref
+
+% Fix theorem numbering and autoref issue
+\newtheorem{dummy}{***}[chapter] % add [section] for numbering within sections
+\newcommand{\mynewtheorem}[2]{
+  \newaliascnt{#1}{dummy}
+  \newtheorem{#1}[#1]{#2}
+  \aliascntresetthe{#1}
+  % maybe we will squish some autoref defaults, but who cares?
+  \expandafter\def\csname #1autorefname\endcsname{#2}
+}
+
+% theorem definitions <begin>
+\theoremstyle{plain}
+
+	\mynewtheorem{theorem}{Theorem}
+
+	\mynewtheorem{conjecture}{Conjecture}
+	\def\conjectureautorefname{Conjecture}
+
+	\mynewtheorem{lemma}{Lemma}
+	\def\lemmaautorefname{Lemma}
+
+	\mynewtheorem{proposition}{Proposition}
+	\def\propositionautorefname{Proposition}
+
+	\mynewtheorem{corollary}{Corollary}
+	\def\corollaryautorefname{Corollary}
+
+\theoremstyle{definition}
+
+	\mynewtheorem{definition}{Definition}
+	\def\definitionautorefname{Definition}
+
+	\mynewtheorem{condition}{Condition}
+	\def\conditionautorefname{Condition}
+
+	\mynewtheorem{problem}{Problem}
+	\def\problemautorefname{Problem}
+
+	\mynewtheorem{example}{Example}
+	\def\exampleautorefname{Example}
+
+\theoremstyle{remark}
+
+	\mynewtheorem{remark}{Remark}
+	\def\remarkautorefname{Remark}
+
+	\mynewtheorem{note}{Note}
+	\def\noteautorefname{Note}
+
+	\mynewtheorem{case}{Case}
+	\def\caseautorefname{Case}
+
+\makeatletter
+\def\th@plain{%
+	\thm@notefont{}% same as heading font
+	\itshape % body font
+}
+\def\th@definition{%
+	\thm@notefont{}% same as heading font
+	\normalfont % body font
+}
+\makeatother
+
+% <end>
+
+% Table column types (http://tex.stackexchange.com/a/12712)
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
+\newcolumntype{N}{@{}m{0pt}@{}}
+
+\newcolumntype{+}{>{\global\let\currentrowstyle\relax}}
+\newcolumntype{^}{>{\currentrowstyle}}
+	\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
+	#1\ignorespaces
+}
+
+% otoprule
+\newcommand{\otoprule}{\midrule[\heavyrulewidth]}

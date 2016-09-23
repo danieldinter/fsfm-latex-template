@@ -1,0 +1,70 @@
+% include the header
+\input{header}
+
+\begin{document}
+
+% print a list of todos (only in draft mode)
+\listoftodos
+\clearpage
+
+% include the coverpage
+\input{coverpage}
+
+% include the titlepage
+\input{titlepage}
+
+\pagestyle{empty}
+
+\pagestyle{headings}
+% use roman numbers from here
+\pagenumbering{Roman}
+
+\tableofcontents
+
+\clearpage
+\newpage
+
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+
+\clearpage
+\newpage
+
+\listoftables
+\addcontentsline{toc}{chapter}{\listtablename}
+
+\include{chapters/acronyms}
+
+\clearpage
+
+% save counter of roman-numbered pages to continue counter at the end
+\newcounter{romancounter}
+\setcounter{romancounter}{\value{page}}
+% use arabic numbers from here
+\pagenumbering{arabic}
+
+% introduction
+\input{chapters/introduction}
+
+% main part
+\input{chapters/1}
+
+% conclusion
+\input{chapters/conclusion}
+
+\clearpage
+
+% use roman numbers from here (continuation)
+\pagenumbering{Roman}
+\setcounter{page}{\value{romancounter}}
+
+\include{chapters/appendix}
+
+\printbibliography
+
+\clearpage
+\newpage
+
+\makestatementofclarification
+
+\end{document}

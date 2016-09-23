@@ -4,7 +4,6 @@
 \ProvidesClass{fsthesis_title}
  [\classdate\space\classversion\space Frankfurt School of Finance and Management design]
 
-
 % redefine some commands to avoid misuse
 \let\FS@thesis@maketitle\maketitle
 	\gdef\maketitle{\PackageError{\@currname}{Do not use '\noexpand\maketitle` directly!\MessageBreak See documentation for details.}\@ehc}
@@ -60,6 +59,9 @@
 	\gdef\FS@thesis@date{#1}
 }
 
+% load graphicx package to include logo on titlepage
+\RequirePackage{graphicx}
+
 \newcommand{\makecoverpage}{%
 	\begingroup%
 		\thispagestyle{empty}%
@@ -67,7 +69,10 @@
 		\noindent%
 		\raggedright%
 		%
-		\center{\sffamily%
+		\center{
+			\includegraphics[clip,height=1cm]{logo_fs}\par%
+			\vspace*{2cm}%
+			\sffamily%
 			\Large{\FS@thesis@type}\par%
 			\vspace*{5cm}%
 			\@title\par
